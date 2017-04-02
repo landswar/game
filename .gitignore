@@ -1,0 +1,14 @@
+# Coverage directory used by tools like istanbul
+coverage
+
+# Dependency directories
+node_modules
+
+# VSCode
+.vscode
+
+public/dist/*
+public/dist/!landswar-game.js
+public/dist/!landswar-game.js.map
+public/dist/!track-webfont.woff
+public/dist/!track-webfont.woff2

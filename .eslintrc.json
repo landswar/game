@@ -1,0 +1,17 @@
+{
+	"env": {
+		"browser": true
+	},
+	"globals": {
+		"logger": true,
+		"TOKEN_PLAYER": true,
+		"SHORTID_ROOM": true,
+		"WEBSOCKETS_URL": true,
+		"VERSION": true
+	},
+	"parserOptions": {
+		"ecmaVersion": 8,
+		"sourceType": "module"
+	},
+	"extends": "eslint-config-lludol"
+}

@@ -1,0 +1,3 @@
+[submodule "public/src/assets"]
+	path = public/src/assets
+	url = https://github.com/landswar/assets.git
