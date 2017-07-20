@@ -3,11 +3,7 @@
 		"browser": true
 	},
 	"globals": {
-		"logger": true,
-		"TOKEN_PLAYER": true,
-		"SHORTID_ROOM": true,
-		"WEBSOCKETS_URL": true,
-		"VERSION": true
+		"logger": true
 	},
 	"parserOptions": {
 		"ecmaVersion": 8,
