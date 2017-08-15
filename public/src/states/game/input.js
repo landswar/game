@@ -8,8 +8,8 @@ export default {
 	// },
 
 	// _onRightButtonDown(x, y) {
-		// x += Math.round(this.camera.x / TILE_SIZE);
-		// y += Math.round(this.camera.y / TILE_SIZE);
+	// x += Math.round(this.camera.x / TILE_SIZE);
+	// y += Math.round(this.camera.y / TILE_SIZE);
 	// },
 
 	_onPointerMoved(x, y) {
@@ -30,6 +30,7 @@ export default {
 			// }
 			if (x !== this._lastPointerPos.x || y !== this._lastPointerPos.y) {
 				this._onPointerMoved(x, y);
+				this._sidebar.displayGroundInfos(this._getCurrentTile(x, y));
 			}
 		});
 	},

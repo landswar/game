@@ -1,9 +1,11 @@
 import * as Phaser from 'phaser';
+
 import loglevel from 'loglevel';
 
 import StateGame from './states/game/StateGame';
 import landsWarData from './utils/LandsWarData';
 import LandsWarError from './utils/LandsWarError';
+import LandsWarLocales from './utils/LandsWarLocales';
 import Socket from './websockets/Socket';
 import SocketRoom from './websockets/SocketRoom';
 
@@ -23,6 +25,8 @@ class LandsWar extends Phaser.Game {
 		if (!config.logLevel) {
 			config.logLevel = loglevel.levels.DEBUG;
 		}
+
+		landsWarData.setRules(config.gameRules);
 
 		window.logger = loglevel;
 		logger.setLevel(config.logLevel);
@@ -88,6 +92,7 @@ class LandsWar extends Phaser.Game {
 	 * Start the game by joining the room and starting the first state.
 	 */
 	async start() {
+		await LandsWarLocales.init();
 		const result = await this._socketRoom.join(this._config.tokenPlayer, this._config.shortIdRoom);
 		if (result.statusCode) {
 			throw new LandsWarError(result, result.message);

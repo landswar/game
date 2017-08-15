@@ -8,6 +8,7 @@ class LandsWarData {
 	constructor() {
 		this._players = null;
 		this._map = null;
+		this._rules = null;
 	}
 
 	/**
@@ -27,7 +28,24 @@ class LandsWarData {
 	getMap() {
 		return this._map;
 	}
+
+	/**
+	 * Set the Rules of the game.
+	 * @param {Object} rules - An Object which contains every rules fetched from the API.
+	 */
+	setRules(rules) {
+		this._rules = rules;
+	}
+
+	/**
+	 * Get the Rules of the game.
+	 * @return {Object} An Object which contains every rules fetched from the API.
+	 */
+	getRules() {
+		return this._rules;
+	}
 }
 
 export const TILE_SIZE = 32;
+export const FONT_FAMILY = 'Track';
 export default new LandsWarData();
