@@ -5,9 +5,10 @@ import LandsWarLocales from './../../../utils/LandsWarLocales';
 
 
 const SIDEBAR = {
-	MARGIN: 10,
-	WIDTH:  160,
-	HEIGHT: 240,
+	MARGIN_RIGHT:  10,
+	MARGIN_BOTTOM: 75,
+	WIDTH:         160,
+	HEIGHT:        240,
 };
 
 const GROUND = {
@@ -36,7 +37,7 @@ class Sidebar extends Phaser.Group {
 	constructor(game) {
 		super(game);
 
-		this._sidebar = new Phaser.Sprite(game, game.width - SIDEBAR.WIDTH - SIDEBAR.MARGIN, game.height - SIDEBAR.HEIGHT - SIDEBAR.MARGIN, 'sidebar');
+		this._sidebar = new Phaser.Sprite(game, game.width - SIDEBAR.WIDTH - SIDEBAR.MARGIN_RIGHT, game.height - SIDEBAR.HEIGHT - SIDEBAR.MARGIN_BOTTOM, 'sidebar');
 		this._sidebar.fixedToCamera = true;
 
 		this._ground = null;
@@ -78,10 +79,19 @@ class Sidebar extends Phaser.Group {
 	 * @return {Object} An Object with ground informations.
 	 */
 	_getGroundInfos(index) {
-		const groundRule = landsWarData.getRules().grounds[index - 1];
+		const realIndex = index - 1;
+
+		if (realIndex >= 2 && realIndex <= 8) {
+			return {
+				name:    'road',
+				defense: landsWarData.getRules().grounds[3].defense,
+			};
+		}
+
+		const groundRule = landsWarData.getRules().grounds[realIndex];
 
 		return {
-			name:    groundRule ? groundRule.name : 'road',
+			name:    groundRule.name,
 			defense: groundRule.defense,
 		};
 	}
