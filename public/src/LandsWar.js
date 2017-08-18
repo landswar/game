@@ -8,6 +8,7 @@ import LandsWarError from './utils/LandsWarError';
 import LandsWarLocales from './utils/LandsWarLocales';
 import Socket from './websockets/Socket';
 import SocketRoom from './websockets/SocketRoom';
+import { emit, EVENTS } from './utils/LandsWarEventEmitter';
 
 /**
  * LandsWar is the main class and the entry point of the Phaser game.
@@ -97,7 +98,9 @@ class LandsWar extends Phaser.Game {
 		if (result.statusCode) {
 			throw new LandsWarError(result, result.message);
 		}
+		emit(EVENTS.EVENT_NB_TURN, result.nbTurn);
 		landsWarData.setMapAndPlayers(result.players, result.map);
+
 		this.state.start('game');
 	}
 }

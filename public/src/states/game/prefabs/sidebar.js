@@ -3,7 +3,6 @@ import * as Phaser from 'phaser';
 import landsWarData, { FONT_FAMILY } from './../../../utils/LandsWarData';
 import LandsWarLocales from './../../../utils/LandsWarLocales';
 
-
 const SIDEBAR = {
 	MARGIN_RIGHT:  10,
 	MARGIN_BOTTOM: 75,
@@ -42,16 +41,14 @@ class Sidebar extends Phaser.Group {
 
 		this._ground = null;
 
-		game.time.events.add(Phaser.Timer.SECOND, () => {
-			this._groundName = new Phaser.Text(game, GROUND.TEXT.X, GROUND.TEXT.Y, '', {
-				font: `${GROUND.TEXT.SIZE}px '${FONT_FAMILY}'`,
-				fill: 'black',
-			});
-
-			this._sidebar.addChild(this._groundName);
-
-			this._createGroundPart(game);
+		this._groundName = new Phaser.Text(game, GROUND.TEXT.X, GROUND.TEXT.Y, '', {
+			font: `${GROUND.TEXT.SIZE}px '${FONT_FAMILY}'`,
+			fill: 'black',
 		});
+
+		this._sidebar.addChild(this._groundName);
+
+		this._createGroundPart(game);
 
 		this.add(this._sidebar);
 	}

@@ -83,7 +83,7 @@ class StateGame extends Phaser.State {
 		this._cursor = this.add.sprite(0, 0, 'cursor');
 		this._mapGroup.add(this._cursor);
 
-		this._circlNbTurn = new CircleNbTurn(this.game, 0);
+		this._circlNbTurn = new CircleNbTurn(this.game);
 		this._sidebar = new Sidebar(this.game);
 		this._btnEndOfTurn = new BtnEndOfTurn(this.game);
 

@@ -1,5 +1,7 @@
 import * as Phaser from 'phaser';
 
+import { on, EVENTS } from './../../../utils/LandsWarEventEmitter';
+
 const MARGIN = 10;
 const SPRITE_SIZE = 50;
 
@@ -11,44 +13,45 @@ class CircleNbTurn extends Phaser.Group {
 	 * Put every elements in a Phaser group to display the number of turn.
 	 * @constructor
 	 * @param {Phaser} game - The Phaser instance.
-	 * @param {Number} nbTurn - The current number of turn.
 	 */
-	constructor(game, nbTurn) {
+	constructor(game) {
 		super(game);
 
-		this._nbTurn = nbTurn;
+		this._nbTurn = 0;
 
 		this._circle = new Phaser.Sprite(game, MARGIN, game.height - SPRITE_SIZE - MARGIN, 'circleNbTurn');
 		this._circle.fixedToCamera = true;
 
-		this._nbTurnText = new Phaser.Text(game, 0, 0, this._nbTurn.toString(), {
-			font: '28px Track',
-			fill: 'white',
-		});
-		this._setTextPosition(this._nbTurn);
+		game.time.events.add(Phaser.Timer.SECOND, () => {
+			this._nbTurnText = new Phaser.Text(game, 0, 0, this._nbTurn.toString(), {
+				font: '28px Track',
+				fill: 'white',
+			});
+			this._updateText();
 
-		this._circle.addChild(this._nbTurnText);
+			on(EVENTS.EVENT_NB_TURN, (nbTurn) => {
+				this._nbTurn = nbTurn;
+
+				this._updateText();
+			});
+
+			this._circle.addChild(this._nbTurnText);
+		});
+
 		this.add(this._circle);
 	}
 
 	/**
-	 * Set the text position.
-	 * @param {Number} nbTurn - The current number of turn.
+	 * Update the text.
 	 */
-	_setTextPosition(nbTurn) {
+	_updateText() {
+		this._nbTurnText.setText(this._nbTurn.toString());
 		this._nbTurnText.y = 7;
-		if (nbTurn < 10) {
+		if (this._nbTurn < 10) {
 			this._nbTurnText.x = 15;
-		} else if (nbTurn < 100) {
+		} else if (this._nbTurn < 100) {
 			this._nbTurnText.x = 7;
 		}
-	}
-
-	/**
-	 * Increment the number of turn.
-	 */
-	incrementNbTurn() {
-		++this._nbTurn;
 	}
 }
 
