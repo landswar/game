@@ -5,12 +5,14 @@ import input from './input';
 import landsWarData, { TILE_SIZE } from './../../utils/LandsWarData';
 import CircleNbTurn from './prefabs/circleNbTurn';
 import Sidebar, { SHIELD } from './prefabs/sidebar';
+import BtnEndOfTurn, { BTN_END_OF_TURN } from './prefabs/btnEndOfTurn';
 
 import groundImg from './../../assets/out/ground/standard/standard-sun.png';
 import cursorImg from './../../assets/out/interface/element/cursor.png';
 import circleNbTurnImg from './../../assets/out/interface/element/circle-nb-turn.png';
 import sidebarImg from './../../assets/out/interface/element/sidebar.png';
 import shield from './../../assets/out/interface/element/shield.png';
+import btnEndOfTurn from './../../assets/out/interface/button/btn-end-of-turn.png';
 
 /**
  * StateGame is the state where the player can start playing.
@@ -38,6 +40,7 @@ class StateGame extends Phaser.State {
 		this.load.image('circleNbTurn', circleNbTurnImg);
 		this.load.image('sidebar', sidebarImg);
 		this.load.spritesheet('shield', shield, SHIELD.WIDTH, SHIELD.HEIGHT);
+		this.load.spritesheet('btnEndOfTurn', btnEndOfTurn, BTN_END_OF_TURN.WIDTH, BTN_END_OF_TURN.HEIGHT);
 
 		const blob = new Blob([JSON.stringify(landsWarData.getMap())], { type: 'application/json' });
 		this.load.tilemap('ground', URL.createObjectURL(blob), null, Phaser.Tilemap.TILED_JSON);
@@ -82,6 +85,7 @@ class StateGame extends Phaser.State {
 
 		this._circlNbTurn = new CircleNbTurn(this.game, 0);
 		this._sidebar = new Sidebar(this.game);
+		this._btnEndOfTurn = new BtnEndOfTurn(this.game);
 
 		this._addKeyboardCallback();
 		this._addMoveCallback();
