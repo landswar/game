@@ -10,7 +10,9 @@ const emitsWaiting = new Map();
 const listeners = new Map();
 
 const EVENTS = {
-	EVENT_NB_TURN: 'EVENT_NB_TURN',
+	EVENT_NB_TURN:   'EVENT_NB_TURN',
+	EVENT_END_TURN:  'EVENT_END_TURN',
+	EVENT_YOUR_TURN: 'EVENT_YOUR_TURN',
 };
 
 /**
@@ -21,7 +23,9 @@ const EVENTS = {
  */
 function addValueToMap(map, key, value) {
 	if (map.has(key)) {
-		map.set(key, map.get(key).push(value));
+		const currentArray = map.get(key);
+		currentArray.push(value);
+		map.set(key, currentArray);
 	} else {
 		map.set(key, [value]);
 	}

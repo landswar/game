@@ -12,6 +12,25 @@ class LandsWarData {
 	}
 
 	/**
+	 * @param {String} tokenPlayer - The token of the Player.
+	 * @param {String} shortIdRoom - The Short ID of the current Room.
+	 */
+	setAuthData(tokenPlayer, shortIdRoom) {
+		this._authData = {
+			tokenPlayer,
+			shortIdRoom,
+		};
+	}
+
+	/**
+	 * Get the Auth informations to send through WebSockets.
+	 * @return {Object} The Auth informations.
+	 */
+	getAuthData() {
+		return this._authData;
+	}
+
+	/**
 	 * Set an array which contains every player of the game and the map of the game.
 	 * @param {Array} players - An array which contains each id of players in the game.
 	 * @param {Array} map - A two dimensional array who correspond to the map of the game.

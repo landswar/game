@@ -1,5 +1,7 @@
 import * as Phaser from 'phaser';
 
+import { on, emit, EVENTS } from './../../../utils/LandsWarEventEmitter';
+
 const BTN_END_OF_TURN = {
 	WIDTH:         142,
 	HEIGHT:        32,
@@ -28,6 +30,11 @@ class BtnEndOfTurn extends Phaser.Group {
 			'btnEndOfTurn', this.onClick, this,
 			BTN_END_OF_TURN.FRAME_OVER, BTN_END_OF_TURN.FRAME_OUT, BTN_END_OF_TURN.FRAME_DOWN,
 		);
+		this._btnEndOfTurn.fixedToCamera = true;
+
+		on(EVENTS.EVENT_YOUR_TURN, (yourTurn) => {
+			this._btnEndOfTurn.inputEnabled = !yourTurn;
+		});
 
 		this.add(this._btnEndOfTurn);
 	}
@@ -37,6 +44,7 @@ class BtnEndOfTurn extends Phaser.Group {
 	 */
 	onClick() {
 		this._btnEndOfTurn.inputEnabled = false;
+		emit(EVENTS.EVENT_END_TURN, {});
 	}
 }
 

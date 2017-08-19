@@ -7,6 +7,7 @@ import landsWarData from './utils/LandsWarData';
 import LandsWarError from './utils/LandsWarError';
 import LandsWarLocales from './utils/LandsWarLocales';
 import Socket from './websockets/Socket';
+import SocketGame from './websockets/SocketGame';
 import SocketRoom from './websockets/SocketRoom';
 import { emit, EVENTS } from './utils/LandsWarEventEmitter';
 
@@ -27,6 +28,7 @@ class LandsWar extends Phaser.Game {
 			config.logLevel = loglevel.levels.DEBUG;
 		}
 
+		landsWarData.setAuthData(config.tokenPlayer, config.shortIdRoom);
 		landsWarData.setRules(config.gameRules);
 
 		window.logger = loglevel;
@@ -38,6 +40,7 @@ class LandsWar extends Phaser.Game {
 			() => { this._connect(); },
 			() => { this._disconnect(); },
 		);
+		this._socketGame = new SocketGame(this._socket);
 		this._socketRoom = new SocketRoom(this._socket);
 
 		this._createState();
