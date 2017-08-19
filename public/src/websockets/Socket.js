@@ -34,8 +34,12 @@ class Socket {
 	 * @return {Promise} A Promise with the received data.
 	 */
 	emit(event, data) {
-		return new Promise((resolve) => {
+		return new Promise((resolve, reject) => {
 			this._socket.emit(event, data, (result) => {
+				if (result.statusCode) {
+					reject(result);
+					return;
+				}
 				resolve(result);
 			});
 		});
