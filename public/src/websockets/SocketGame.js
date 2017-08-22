@@ -18,7 +18,11 @@ class SocketGame {
 			emit(EVENTS.EVENT_YOUR_TURN, data.yourTurn);
 		});
 
-		on(EVENTS.EVENT_END_TURN, () => this.endTurn());
+		try {
+			on(EVENTS.EVENT_END_TURN, () => this.endTurn());
+		} catch (e) {
+			logger.error(e);
+		}
 	}
 
 	/**
