@@ -1,0 +1,7 @@
+@font-face {
+	font-family: 'Track';
+	src: url('track-webfont.woff2') format('woff2'),
+		url('track-webfont.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
