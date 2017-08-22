@@ -25,7 +25,7 @@ class LandsWar extends Phaser.Game {
 		super(config.width, config.height, Phaser.AUTO, config.divIdName);
 
 		if (!config.logLevel) {
-			config.logLevel = loglevel.levels.DEBUG;
+			config.logLevel = loglevel.levels.TRACE;
 		}
 
 		landsWarData.setAuthData(config.tokenPlayer, config.shortIdRoom);
@@ -103,6 +103,10 @@ class LandsWar extends Phaser.Game {
 		}
 		emit(EVENTS.EVENT_NB_TURN, result.nbTurn);
 		landsWarData.setMapAndPlayers(result.players, result.map);
+
+		result.units.forEach((unit) => {
+			emit(EVENTS.EVENT_CREATE_UNIT, unit);
+		});
 
 		this.state.start('game');
 	}

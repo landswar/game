@@ -6,6 +6,8 @@ import landsWarData, { TILE_SIZE } from './../../utils/LandsWarData';
 import CircleNbTurn from './prefabs/circleNbTurn';
 import Sidebar, { SHIELD } from './prefabs/sidebar';
 import BtnEndOfTurn, { BTN_END_OF_TURN } from './prefabs/btnEndOfTurn';
+import Unit, { UNIT } from './prefabs/unit';
+import { on, EVENTS } from './../../utils/LandsWarEventEmitter';
 
 import groundImg from './../../assets/out/ground/standard/standard-sun.png';
 import cursorImg from './../../assets/out/interface/element/cursor.png';
@@ -13,6 +15,10 @@ import circleNbTurnImg from './../../assets/out/interface/element/circle-nb-turn
 import sidebarImg from './../../assets/out/interface/element/sidebar.png';
 import shield from './../../assets/out/interface/element/shield.png';
 import btnEndOfTurn from './../../assets/out/interface/button/btn-end-of-turn.png';
+import unitRedImg from './../../assets/out/unit/red/infantry-red.png';
+import bulletImg from './../../assets/out/interface/element/bullet.png';
+import gasolineImg from './../../assets/out/interface/element/gasoline.png';
+import heartImg from './../../assets/out/interface/element/heart.png';
 
 /**
  * StateGame is the state where the player can start playing.
@@ -36,11 +42,17 @@ class StateGame extends Phaser.State {
 		this.game.kineticScrolling = this.game.plugins.add(Phaser.Plugin.KineticScrolling);
 
 		this.load.spritesheet('tiles', groundImg, TILE_SIZE, TILE_SIZE);
+
 		this.load.image('cursor', cursorImg);
 		this.load.image('circleNbTurn', circleNbTurnImg);
 		this.load.image('sidebar', sidebarImg);
+		this.load.image('bullet', bulletImg);
+		this.load.image('gasoline', gasolineImg);
+		this.load.image('heart', heartImg);
+
 		this.load.spritesheet('shield', shield, SHIELD.WIDTH, SHIELD.HEIGHT);
 		this.load.spritesheet('btnEndOfTurn', btnEndOfTurn, BTN_END_OF_TURN.WIDTH, BTN_END_OF_TURN.HEIGHT);
+		this.load.spritesheet('unitRed', unitRedImg, UNIT.WIDTH, UNIT.HEIGHT);
 
 		const blob = new Blob([JSON.stringify(landsWarData.getMap())], { type: 'application/json' });
 		this.load.tilemap('ground', URL.createObjectURL(blob), null, Phaser.Tilemap.TILED_JSON);
@@ -86,6 +98,11 @@ class StateGame extends Phaser.State {
 		this._circlNbTurn = new CircleNbTurn(this.game);
 		this._sidebar = new Sidebar(this.game);
 		this._btnEndOfTurn = new BtnEndOfTurn(this.game);
+
+		this._units = [];
+		on(EVENTS.EVENT_CREATE_UNIT, (unit) => {
+			this._units.push(new Unit(this.game, unit));
+		});
 
 		this._addKeyboardCallback();
 		this._addMoveCallback();

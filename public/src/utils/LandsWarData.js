@@ -63,6 +63,15 @@ class LandsWarData {
 	getRules() {
 		return this._rules;
 	}
+
+	/**
+	 * Get informations about an unit.
+	 * @param {Number} id - The unique ID of the Unit.
+	 * @return {Object} The Unit Object.
+	 */
+	getUnitInfos(id) {
+		return this._rules.units.find((unit) => unit.id === id);
+	}
 }
 
 export const TILE_SIZE = 32;
