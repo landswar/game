@@ -9,6 +9,7 @@ import LandsWarLocales from './utils/LandsWarLocales';
 import Socket from './websockets/Socket';
 import SocketGame from './websockets/SocketGame';
 import SocketRoom from './websockets/SocketRoom';
+import SocketUnit from './websockets/SocketUnit';
 import { emit, EVENTS } from './utils/LandsWarEventEmitter';
 
 /**
@@ -42,6 +43,7 @@ class LandsWar extends Phaser.Game {
 		);
 		this._socketGame = new SocketGame(this._socket);
 		this._socketRoom = new SocketRoom(this._socket);
+		this._socketUnit = new SocketUnit(this._socket);
 
 		this._createState();
 	}

@@ -1,7 +1,8 @@
 import * as Phaser from 'phaser';
 
 import LandsWarData, { TILE_SIZE } from '../../../utils/LandsWarData';
-import { emit, EVENTS } from './../../../utils/LandsWarEventEmitter';
+import { on, emit, EVENTS } from './../../../utils/LandsWarEventEmitter';
+import MoveSquares from './moveSquares';
 
 const UNIT = {
 	WIDTH:  25,
@@ -30,13 +31,22 @@ class Unit extends Phaser.Group {
 
 		this._unit = new Phaser.Sprite(game, unit.x * TILE_SIZE, unit.y * TILE_SIZE, 'unitRed', unit.id - 1);
 		this._unit.inputEnabled = true;
-		this._unit.events.onInputDown.add(this.onClick, this);
+		this._unit.events.onInputDown.add(() => this.onClick(game), this);
 		this._unit.events.onInputOver.add(this.onOver, this);
 		this._unit.events.onInputOut.add(this.onOut, this);
 
 		this._unitLife = null;
 
 		this.updateText(game);
+
+		on(EVENTS.EVENT_UNIT_MOVED, ({ redisIdUnit, x, y }) => {
+			if (this._unitData.redisId === redisIdUnit) {
+				this._unit.x = x * TILE_SIZE;
+				this._unit.y = y * TILE_SIZE;
+				this._unitData.x = x;
+				this._unitData.y = y;
+			}
+		});
 
 		this.add(this._unit);
 	}
@@ -67,8 +77,14 @@ class Unit extends Phaser.Group {
 
 	/**
 	 * Fired when we click on the Unit.
+	 * @param {Phaser} game - The Phaser instance.
 	 */
-	onClick() {
+	onClick(game) {
+		if (this._moveSquares) {
+			this._moveSquares.destroy();
+		}
+
+		this._moveSquares = new MoveSquares(game, this._unitData);
 		logger.info('OUAI MA GUEULE', this._unitData, LandsWarData.getUnitInfos(this._unitData.id));
 	}
 
