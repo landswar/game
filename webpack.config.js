@@ -6,9 +6,10 @@ const pkg = require('./package.json');
 
 const publicFolder = `${__dirname}/public`;
 const distFolder = `${publicFolder}/dist`;
+const env = process.env.NODE_ENV || 'development';
 
 module.exports = {
-	entry:  [`${publicFolder}/src/main.js`],
+	entry:  env === 'production' ? `${publicFolder}/src/LandsWar.js` : `${publicFolder}/src/main.js`,
 	output: {
 		libraryTarget: 'var',
 		library:       'LandsWar',
