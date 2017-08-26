@@ -1,5 +1,5 @@
 {
-  "name": "landswar-game",
+  "name": "@landswar/landswar-game",
   "version": "0.0.1",
   "description": "The LandsWar game created with Phaser.io.",
   "main": "./public/dist/landswar-game.js",
@@ -11,6 +11,9 @@
     "fix-code": "eslint . --fix",
     "update-submodules": "git submodule foreach git pull origin master"
   },
+  "files": [
+    "./public/dist"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/landswar/game.git"
