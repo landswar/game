@@ -85,7 +85,6 @@ class Unit extends Phaser.Group {
 		}
 
 		this._moveSquares = new MoveSquares(game, this._unitData);
-		logger.info('OUAI MA GUEULE', this._unitData, LandsWarData.getUnitInfos(this._unitData.id));
 	}
 
 	/**
