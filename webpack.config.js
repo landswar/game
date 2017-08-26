@@ -44,8 +44,8 @@ module.exports = {
 		new webpack.EnvironmentPlugin({
 			TOKEN_PLAYER:   null,
 			SHORTID_ROOM:   null,
-			API_URL:        'http://127.0.0.1:3000',
-			WEBSOCKETS_URL: 'http://127.0.0.1:3000',
+			API_URL:        'http://0.0.0.0:3000',
+			WEBSOCKETS_URL: 'http://0.0.0.0:3000',
 		}),
 		new webpack.DefinePlugin({
 			VERSION: JSON.stringify(pkg.version),
