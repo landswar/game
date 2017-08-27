@@ -12,9 +12,6 @@
     "fix-code": "eslint . --fix",
     "update-submodules": "git submodule foreach git pull origin master"
   },
-  "files": [
-    "./public/dist"
-  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/landswar/game.git"
