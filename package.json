@@ -1,8 +1,7 @@
 {
-  "name": "@landswar/landswar-game",
+  "name": "landswar-game",
   "version": "0.0.1",
   "description": "The LandsWar game created with Phaser.io.",
-  "main": "./public/dist/landswar-game.js",
   "scripts": {
     "start": "webpack-dev-server",
     "build": "NODE_ENV=production webpack",
